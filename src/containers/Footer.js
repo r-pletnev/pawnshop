@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 
-export default class Footer extends {
+export default class Footer extends Component{
   render(){
     return (
       <footer>
           <div className="row">
               <div className="col-lg-12">
-                  <p>Copyright &copy; Your Website 2014</p>
+                  <p>Copyright &copy; Express Lombard {new Date().getFullYear()}</p>
               </div>
           </div>
       </footer>

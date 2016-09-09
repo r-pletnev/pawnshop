@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './styles/content.css'
+import './content.css'
 
 export default class Cardset extends Component {
   render() {

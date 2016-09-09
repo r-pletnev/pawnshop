@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, {Component} from 'react'
 import Card from './Card'
-import {filials} from './data/filials'
+import {filials} from '../data/filials'
 import Cardset from './Cardset'
 import Evaluation from './Evaluation'
 import Procent from './Procent'
@@ -9,9 +9,10 @@ import Procent from './Procent'
 export default class Container extends Component {
   getCardset(){
     const lombards = _.map(filials.results, id => { return filials[id]})
-    const lombardCards = _.map(lombards, elm => {
-      return ( 
-        <Card 
+    const lombardCards = _.map(lombards, (elm, index) => {
+      return (
+        <Card
+          key={index}
           name={elm.name}
           address={elm.address}
           phone={elm.phone}
@@ -27,7 +28,6 @@ export default class Container extends Component {
     })
     return <Cardset> {lombardCards} </Cardset>
   }
-
 
 
   render(){

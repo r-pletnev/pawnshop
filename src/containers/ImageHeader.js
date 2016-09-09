@@ -7,7 +7,7 @@ export default class ImageHeader extends Component {
         <div className="headline">
             <div className="container">
                 <h1>Экспресс Ломбард</h1>
-                <h2>Региональная сеть ломбардов</h2>
+                <h2>С нами удобней!</h2>
             </div>
         </div>
       </header>
