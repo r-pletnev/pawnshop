@@ -2,20 +2,27 @@ import _ from 'lodash'
 import React, {Component} from 'react'
 import InputRange from 'react-input-range'
 import './react-input-range.css'
-import {gold} from '../../data/gold'
+import {gold} from '../../../data/gold'
 
 export default class Evaluation extends Component {
   constructor(props){
     super(props)
-    this.state = { weigth: 5, price: 0, goldPrice: 0 }
+    this.state = { weigth: 2, price: 0, goldPrice: 0 }
+    this.handleWeightChange = this.handleWeightChange.bind(this)
+    this.getSelectGoldWidget = this.getSelectGoldWidget.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleChangeGold = this.handleChangeGold.bind(this)
   }
 
-  handleValueChange(component, value){
-    this.setState({weigth: value}, this.changeGoldPrice.bind(this)())
+  handleWeightChange(component, value){
+    this.setState({
+      weigth: value,
+      goldPrice: value * this.state.price
+    })
   }
 
   handleInputChange(e){
-    this.setState({weigth: parseInt(e.target.value)}, this.changeGoldPrice.bind(this)())
+    this.handleWeightChange(null, parseInt(e.target.value))
   }
 
   handleChangeGold(e){
@@ -32,13 +39,7 @@ export default class Evaluation extends Component {
     })
   }
 
-  changeGoldPrice(){
-    this.setState({
-      goldPrice: this.state.weigth * this.state.price
-    })
-  }
-
-  getSelectGold(){
+  getSelectGoldWidget(){
     const goldOptions = gold.map((elm, index) => {
       return (
         <option value={elm.id} key={index}>{elm.name}</option>
@@ -49,7 +50,8 @@ export default class Evaluation extends Component {
       <select
         style={{height: '3em'}}
         id='goldMark'
-        onChange={this.handleChangeGold.bind(this)}
+        onChange={this.handleChangeGold}
+        className='form-control'
       >
         {goldOptions}
       </select>
@@ -62,7 +64,7 @@ export default class Evaluation extends Component {
         <h2 id='evaluation'>Оценка золота</h2>
         <form className='form-inline'>
           <div className='form-group'>
-            <label for='goldWeigth'>Вес изделия</label>
+            <label htmlFor='goldWeigth'>Вес изделия</label>
             {' '}
             <div className='input-group'>
               <div className='input-group-addon' style={{width: '250px'}}>
@@ -70,7 +72,7 @@ export default class Evaluation extends Component {
                   maxValue={10}
                   minValue={1}
                   value={this.state.weigth}
-                  onChange={this.handleValueChange.bind(this)}
+                  onChange={this.handleWeightChange}
                   labelSuffix={' г.'}
                   name={'Вес'}
                 />
@@ -82,7 +84,7 @@ export default class Evaluation extends Component {
                   min={1}
                   max={10}
                   value={this.state.weigth}
-                  onChange={this.handleInputChange.bind(this)}
+                  onChange={this.handleInputChange}
                   id='goldWeigth'
                 />
               </div>
@@ -90,13 +92,13 @@ export default class Evaluation extends Component {
           </div>
           {' '}
           <div className='form-group'>
-            <label for='goldMark'>Проба</label>
+            <label htmlFor='goldMark'>Проба</label>
             {' '}
-            {this.getSelectGold.bind(this)()}
+            {this.getSelectGoldWidget()}
           </div>
           {' '}
           <div className='form-group'>
-            <label for='goldPrice'>Цена</label>
+            <label htmlFor='goldPrice'>Цена</label>
             {' '}
             <input
               style={{height: '3em'}}
@@ -109,55 +111,6 @@ export default class Evaluation extends Component {
             />
           </div>
         </form>
-
-
-        {/*<div className='row'>
-          <div className='col-sm-5'>
-            <h4 className='text-center'>Вес изделия</h4>
-          </div>
-          <div className='col-sm-3'>
-            <h4 className='text-center'>Проба</h4>
-          </div>
-          <div className='col-sm-4'>
-            <h4 className='text-center'>Цена</h4>
-          </div>
-        </div>
-        <div className='row' style={{height: '4em'}}>
-          <div className='col-sm-4'>
-            <InputRange
-              maxValue={10}
-              minValue={1}
-              value={this.state.weigth}
-              onChange={this.handleValueChange.bind(this)}
-              labelSuffix={' г.'}
-              name={'Вес'}
-            />
-          </div>
-          <div className='col-sm-1'>
-            <input 
-              style={{height:'3em'}}
-              className='text-center'
-              type='number'
-              min={1}
-              max={10}
-              value={this.state.weigth}
-              onChange={this.handleInputChange.bind(this)}
-            />
-          </div>
-          <div className='col-sm-3'>
-            {this.getSelectGold.bind(this)()}
-          </div>
-          <div className='col-sm-4'>
-            <input
-              style={{height: '3em'}}
-              className='text-center'
-              type='number'
-              min={ 0 }
-              value={this.state.goldPrice}
-              disabled
-            />
-          </div>
-        </div>*/}
       </div>
     )
   }

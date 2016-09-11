@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import Button from '../components/Button'
-import Modal from '../components/Modal'
+import Button from '../../components/Button'
+import Modal from '../../components/Modal'
 import { Map, Marker, MarkerLayout } from 'yandex-map-react'
 
 const markerStyles = {

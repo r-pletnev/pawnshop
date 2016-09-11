@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, {Component} from 'react'
 
 export default class Button extends Component {
@@ -9,12 +10,18 @@ export default class Button extends Component {
   }
 
   render() {
+    const propsWithoutText = _.reduce(this.props, (acc, value, key) => {
+      if (key === 'text') return acc
+      acc[key] = value
+      return acc
+    },{})
+
     return(
       <a 
         href={this.props.href} 
         className={`btn btn-${this.props.type}`}
         role={this.props.role}
-        {...this.props}
+        {...propsWithoutText}
       >
         {this.props.text}
       </a>

@@ -5,12 +5,17 @@ export default class Modal extends Component{
   static propTypes = {
     id: React.PropTypes.number.isRequired,
     name: React.PropTypes.string.isRequired,
+    width: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    width: '65%'
   }
 
   render(){
     return (
       <div className="modal fade" id={`modal_${this.props.id}`} tabIndex="-1" role="dialog" aria-labelledby={this.props.name}>
-        <div className="modal-dialog" role="document" style={{width: '65%'}}>
+        <div className="modal-dialog" role="document" style={{width: this.props.width}}>
           <div className="modal-content">
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

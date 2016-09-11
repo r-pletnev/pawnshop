@@ -1,14 +1,15 @@
 import _ from 'lodash'
 import React, {Component} from 'react'
 import Card from './Card'
-import {filials} from '../data/filials'
+import {filials} from '../../data/filials'
 import Cardset from './Cardset'
 import Evaluation from './Evaluation'
-import Procent from './Procent'
+import ImageHeader from './ImageHeader'
+
 
 export default class Container extends Component {
   getCardset(){
-    const lombards = _.map(filials.results, id => { return filials[id]})
+    const lombards = _.map(filials.results, id => {return filials[id]})
     const lombardCards = _.map(lombards, (elm, index) => {
       return (
         <Card
@@ -29,27 +30,20 @@ export default class Container extends Component {
     return <Cardset> {lombardCards} </Cardset>
   }
 
-
   render(){
-     return (
-       <div className="container">
-         <hr className="featurette-divider" id="evaluation"/>
+    return (
+      <div>
+        <ImageHeader />
+        <div className="container">
+          <hr className="featurette-divider" id="evaluation"/>
           <div className="featurette" >
             <Evaluation />
           </div>
-
           <hr className="featurette-divider" id="filials"/>
-
           <div className="featurette" >
             {this.getCardset()}
           </div>
-
-          <hr className="featurette-divider" id="procent"/>
-
-          <div className="featurette" >
-            <Procent />
-          </div>
-          <hr className="featurette-divider" />
+        </div>
       </div>
     )
   }

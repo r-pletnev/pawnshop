@@ -1,17 +1,14 @@
 import React, {Component} from 'react'
 import Navigation from './Navigation'
-import ImageHeader from './ImageHeader'
-import Container from './Container'
 import Footer from './Footer'
 
 
-export default class MainPage extends Component {
+export default class Page extends Component {
   render() {
     return(
       <div>
         <Navigation />
-        <ImageHeader />
-        <Container />
+        {this.props.children}
         <Footer />
       </div>
     )
