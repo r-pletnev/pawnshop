@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import './navbar.css'
-import Signin from './Signin'
+import Signin from '../Signin'
 
 export default class Navigation extends Component {
   render() {

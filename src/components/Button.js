@@ -10,12 +10,7 @@ export default class Button extends Component {
   }
 
   render() {
-    const propsWithoutText = _.reduce(this.props, (acc, value, key) => {
-      if (key === 'text') return acc
-      acc[key] = value
-      return acc
-    },{})
-
+    const {text, ...propsWithoutText} = this.props
     return(
       <a 
         href={this.props.href} 
@@ -23,7 +18,7 @@ export default class Button extends Component {
         role={this.props.role}
         {...propsWithoutText}
       >
-        {this.props.text}
+        {text}
       </a>
     )
   }
