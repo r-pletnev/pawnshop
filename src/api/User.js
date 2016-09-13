@@ -10,6 +10,4 @@ export function userLogin(data, onSuccess, dispatch){
     method: 'POST',
     body: data
   })
-  .then(onSuccess)
-  .catch(onApiFail(dispatch))
 }

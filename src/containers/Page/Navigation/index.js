@@ -1,9 +1,21 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import './navbar.css'
+import {connect} from 'react-redux'
 import Signin from '../Signin'
+import {showLoginWindow} from '../../../actions/AppActions'
 
-export default class Navigation extends Component {
+class Navigation extends Component {
+  constructor(props){
+    super(props)
+    this.handleClickEnterButton = this.handleClickEnterButton.bind(this)
+  }
+
+  handleClickEnterButton(){
+
+    this.props.dispatch(showLoginWindow())
+  }
+
   render() {
      return (
       <div>
@@ -46,7 +58,7 @@ export default class Navigation extends Component {
                           </li>
                       </ul>
                       <ul className='nav navbar-nav navbar-right'>
-                        <li><Link to='' data-toggle='modal' data-target={'#modal_signin'}>Войти</Link></li>
+                        <li><Link to='' data-toggle='modal' onClick={this.handleClickEnterButton}>Войти</Link></li>
                         <li><Link to=''>Регистрация</Link></li>
                       </ul>
                   </div>
@@ -56,3 +68,5 @@ export default class Navigation extends Component {
       )
     }
 }
+
+export default connect()(Navigation)

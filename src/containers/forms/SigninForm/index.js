@@ -8,7 +8,7 @@ const renderField = ({input, label, type, meta: { touched, error }, id, classNam
   <div>
     <div>
       <input {...input} id={id} className={className} placeholder={label} type={type}/>
-      {touched && error && <span>{error}</span>}
+      {touched && error && <span className='text-warning pull-right'><i>{error}</i></span>}
     </div>
   </div>
 )
@@ -31,6 +31,7 @@ class SigninForm extends Component {
     return(
       <form className="form-signin" onSubmit={handleSubmit}>
         <h2 className="form-signin-heading">Вход</h2>
+        {error && <span className='text-danger'><strong>{error}</strong></span>}
         <label htmlFor="inputUsername" className="sr-only">Логин</label>
         <Field 
           name='username'
@@ -49,7 +50,7 @@ class SigninForm extends Component {
           className='form-control'
           label='Ваш пароль'
         />
-        <button type='submit' className='btn btn-warning btn-lg' disabled={submitting}>Вход</button>
+        <button type='submit' className='btn btn-warning btn-lg' disabled={pristine || submitting}>Вход</button>
       </form>
     )
   }

@@ -23,7 +23,8 @@ export default function userState(state = initialState, action){
       return {
         isAuthenticated: true,
         username: action.payload.name,
-        email: action.payload.email
+        email: action.payload.email,
+        token: action.payload.token
       }
 
     default:
