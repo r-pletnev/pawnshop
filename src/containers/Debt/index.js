@@ -1,10 +1,14 @@
 import React, {Component} from 'react'
-import Page from '../Page'
+import GradientHeader from '../GradientHeader'
 
 export default class Debt extends Component {
   render(){
     return (
-        <span>Узнать задолженность</span>
+      <div>
+        <GradientHeader>
+          <span>Узнать задолженность</span>
+        </GradientHeader>
+      </div>
     )
   }
 }

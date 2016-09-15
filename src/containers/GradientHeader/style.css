@@ -1,0 +1,7 @@
+.yellow-header {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-size: cover;
+  background-image: linear-gradient(to bottom, #FFB114 10%, #FFC421 40%);
+}

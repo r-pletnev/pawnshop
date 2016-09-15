@@ -26,6 +26,13 @@ const mapState = {
 }
 
 export default class Card extends Component{
+  constructor(props){
+    super(props)
+    this.state = {show: false}
+    this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+  }
+
   static propTypes = {
     thumnail: React.PropTypes.string,
     name: React.PropTypes.string,
@@ -34,6 +41,15 @@ export default class Card extends Component{
     daysInterval: React.PropTypes.string,
     workInterval: React.PropTypes.string
   }
+
+  openModal(){
+    this.setState({show: true})
+  }
+
+  closeModal() {
+    this.setState({show: false})
+  }
+
 
   isWorking(){
     const currentHour = new Date().getHours()
@@ -45,7 +61,9 @@ export default class Card extends Component{
       <div className='col-sm-3' style={{width: '25%', minWidth: '220px'}}>
         <Modal 
           id={this.props.id}
-          name={this.props.name}
+          title={this.props.name}
+          show={this.state.show}
+          handlerClose={this.closeModal}
         >
           <div style={{display:'flex'}}>
             <div className='thumbnail' style={{width:'50%'}}>
@@ -86,7 +104,7 @@ export default class Card extends Component{
             <h3>{this.props.name}</h3>
             <div><strong>Адрес</strong>:{' '}<address>{this.props.address}</address></div>
             <p><strong>Телефон</strong>:{' '}{this.props.phone}</p>
-            <p><Button text='Подробнее' data-toggle='modal' data-target={`#modal_${this.props.id}`}/></p>
+            <p><Button text='Подробнее' data-toggle='modal' onClick={this.openModal} /></p>
           </div>
         </div>
       </div>

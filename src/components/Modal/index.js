@@ -6,7 +6,7 @@ export default class SimpleModal extends Component {
 
   static propTypes = {
     title: React.PropTypes.string.isRequired,
-    handleCloseModal: React.PropTypes.func.isRequied,
+    handlerClose: React.PropTypes.func.isRequied,
     show: React.PropTypes.bool.isRequired
   }
 
