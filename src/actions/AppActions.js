@@ -42,11 +42,14 @@ export function hideLoginWindow(){
 }
 
 export const errorDispatcher = dispatch => error => {
-  if(typeof(error) !== 'object') return dispatch(appFail({errorMsg: error}))
+  if(typeof(error) !== 'object') {
+      dispatch(appFail({errorMsg: error}))
+      return
+    }
 
   parseJSON(error.response)
   .then(er => {
-    return dispatch(appFail({errorMsg: JSON.stringify(er)}))
+    dispatch(appFail({errorMsg: JSON.stringify(er)}))
   })
 }
 

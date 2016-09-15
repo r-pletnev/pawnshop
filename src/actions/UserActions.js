@@ -16,12 +16,12 @@ export function loginUser(payload){
     return userLogin({username, password})
       .then((data) => {
         dispatch(loginUserSuccess({token: data.token}))
-        dispatch(appSuccess())})
-        dispatch(hideLoginWindow())
+        dispatch(appSuccess())
+        dispatch(hideLoginWindow())})
       .catch((error) => {
         errorDispatcher(dispatch)(error)
         throw new SubmissionError({_error: 'Введены неверные данные'})
-        })
+      })
   }
 }
 

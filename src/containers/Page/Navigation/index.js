@@ -9,11 +9,27 @@ class Navigation extends Component {
   constructor(props){
     super(props)
     this.handleClickEnterButton = this.handleClickEnterButton.bind(this)
+    this.getRigthNavigationBlock = this.getRigthNavigationBlock.bind(this)
   }
 
   handleClickEnterButton(){
-
     this.props.dispatch(showLoginWindow())
+  }
+
+  getRigthNavigationBlock(){
+    const navs = this.props.isAuthenticated
+      ? (<ul className='nav navbar-nav navbar-right'>
+          <li>
+            <span className='navbar-text'>Вы вошли как {' '}<Link to='/profile' className='navbar-link'>{this.props.username}</Link>!</span>
+          </li>
+        </ul>)
+       :   (<ul className='nav navbar-nav navbar-right'>
+            <li><Link to='' data-toggle='modal' onClick={this.handleClickEnterButton}>Войти</Link></li>
+            <li><Link to=''>Регистрация</Link></li>
+          </ul>)
+    return (
+      <div>{navs}</div>
+    )
   }
 
   render() {
@@ -57,10 +73,7 @@ class Navigation extends Component {
                             <Link to='/debt'>Узнать задолженность</Link>
                           </li>
                       </ul>
-                      <ul className='nav navbar-nav navbar-right'>
-                        <li><Link to='' data-toggle='modal' onClick={this.handleClickEnterButton}>Войти</Link></li>
-                        <li><Link to=''>Регистрация</Link></li>
-                      </ul>
+                      {this.getRigthNavigationBlock()}
                   </div>
               </div>
           </nav>
@@ -69,4 +82,11 @@ class Navigation extends Component {
     }
 }
 
-export default connect()(Navigation)
+function mapStateToProps(state){
+  return {
+    isAuthenticated: state.user.isAuthenticated,
+    username: state.user.username
+  }
+}
+
+export default connect(mapStateToProps)(Navigation)

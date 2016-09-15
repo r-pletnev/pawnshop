@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import Modal from '../../../components/Modal'
 import Button from '../../../components/Button'
 import './signin.css'
 import {Field, reduxForm} from 'redux-form'
+import {loginUser} from '../../../actions/UserActions'
+import {connect} from 'react-redux'
 
 const renderField = ({input, label, type, meta: { touched, error }, id, className }) => (
   <div>
@@ -26,10 +27,15 @@ const validate = values => {
 }
 
 class SigninForm extends Component {
+
+  submitForm(values){
+    return this.props.dispatch(loginUser(values))
+  }
+
   render(){
     const {handleSubmit, pristine, reset, submitting, error} = this.props
     return(
-      <form className="form-signin" onSubmit={handleSubmit}>
+      <form className="form-signin" onSubmit={handleSubmit(this.submitForm.bind(this))}>
         <h2 className="form-signin-heading">Вход</h2>
         {error && <span className='text-danger'><strong>{error}</strong></span>}
         <label htmlFor="inputUsername" className="sr-only">Логин</label>
@@ -56,9 +62,9 @@ class SigninForm extends Component {
   }
 }
 
-export default reduxForm({
+SigninForm = reduxForm({
   form: 'login',
   validate
 })(SigninForm)
 
-
+export default connect()(SigninForm)
