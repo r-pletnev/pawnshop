@@ -31,6 +31,7 @@ export default class Card extends Component{
     this.state = {show: false}
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.workingElement = this.workingElement.bind(this)
   }
 
   static propTypes = {
@@ -50,10 +51,17 @@ export default class Card extends Component{
     this.setState({show: false})
   }
 
-
   isWorking(){
     const currentHour = new Date().getHours()
     return _.inRange(currentHour, this.props.workTime.begin, this.props.workTime.end)
+  }
+
+  workingElement(){
+    if (this.isWorking()){
+      return <span style={{color: 'green'}}>Сейчас работает!</span>
+    } else {
+      return <span style={{color: 'tomato'}}>Сейчас не работает!</span>
+    }
   }
 
   render(){
@@ -64,6 +72,7 @@ export default class Card extends Component{
           title={this.props.name}
           show={this.state.show}
           handlerClose={this.closeModal}
+          featureText={this.workingElement()}
         >
           <div style={{display:'flex'}}>
             <div className='thumbnail' style={{width:'50%'}}>
@@ -73,7 +82,6 @@ export default class Card extends Component{
               <p>
                 <strong>Время работы:</strong>{' '}<em>{`${this.props.daysInterval} - (${this.props.workInterval})`}</em>
                 {'  '}
-                {this.isWorking() ? <span style={{color: 'green'}}>Сейчас работает!</span> : <span style={{color: 'tomato'}}>Сейчас не работает!</span>}
               </p>
             </div>
             <div className='thumbnail' style={{width:'50%'}}>

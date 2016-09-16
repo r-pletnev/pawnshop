@@ -6,15 +6,16 @@ export default class Button extends Component {
     href: '#',
     text: 'Ok',
     type: 'warning',
-    role: 'button'
+    role: 'button',
+    className: null
   }
 
   render() {
-    const {text, ...propsWithoutText} = this.props
+    const {text, className, ...propsWithoutText} = this.props
     return(
       <a 
         href={this.props.href} 
-        className={`btn btn-${this.props.type}`}
+        className={`btn btn-${this.props.type} ${className}`}
         role={this.props.role}
         {...propsWithoutText}
       >

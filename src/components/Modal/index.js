@@ -7,7 +7,12 @@ export default class SimpleModal extends Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
     handlerClose: React.PropTypes.func.isRequied,
-    show: React.PropTypes.bool.isRequired
+    show: React.PropTypes.bool.isRequired,
+    featureText: React.PropTypes.object
+  }
+
+  static defaultProps = {
+    headerText: null
   }
 
   render(){
@@ -19,7 +24,11 @@ export default class SimpleModal extends Component {
       >
         <div className='modal-content'>
           <div className='modal-header'>
-            <span className='modal-title'>{this.props.title}</span>
+            <span className='modal-title'>
+              {this.props.title}
+              {' '}
+              {this.props.featureText}
+            </span>
             <button onClick={this.props.handlerClose} className='close' aria-label='Закрыть'>
               <span aria-hidden='true'>&times;</span>
             </button>

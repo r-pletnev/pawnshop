@@ -4,15 +4,8 @@ import './signin.css'
 import {Field, reduxForm} from 'redux-form'
 import {loginUser} from '../../../actions/UserActions'
 import {connect} from 'react-redux'
+import {renderField} from '../../../utilis'
 
-const renderField = ({input, label, type, meta: { touched, error }, id, className }) => (
-  <div>
-    <div>
-      <input {...input} id={id} className={className} placeholder={label} type={type}/>
-      {touched && error && <span className='text-warning pull-right'><i>{error}</i></span>}
-    </div>
-  </div>
-)
 
 const validate = values => {
   const errors = {}
