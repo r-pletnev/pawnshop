@@ -4,7 +4,7 @@ import {Field} from 'redux-form'
 export const renderField = ({input, label, type, meta: { touched, error }, id, className, showLabel }) => (
   <div>
     <div>
-      <label htmlFor={id} className={showLabel ? 'sr-only' : null}>{label}</label>
+      <label htmlFor={id} className={showLabel ? null : 'sr-only'}>{label}</label>
       <input {...input} id={id} className={className} placeholder={showLabel ? null : label} type={type}/>
       {touched && error && <span className='text-warning pull-right'><i>{error}</i></span>}
     </div>
@@ -24,6 +24,8 @@ export const horizontalField = ({input, label, type, meta: { touched, error }, i
 
 export default class FormField extends Component {
   static PropTypes = {
+    name: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
     className: React.PropTypes.string,
     type: React.PropTypes.string,

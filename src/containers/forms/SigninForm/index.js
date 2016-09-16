@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Button from '../../../components/Button'
 import './signin.css'
 import {Field, reduxForm} from 'redux-form'
+import FormField from '../../../components/FormField'
 import {loginUser} from '../../../actions/UserActions'
 import {connect} from 'react-redux'
 import {renderField} from '../../../utilis'
@@ -31,24 +32,9 @@ class SigninForm extends Component {
       <form className="form-signin" onSubmit={handleSubmit(this.submitForm.bind(this))}>
         <h2 className="form-signin-heading">Вход</h2>
         {error && <span className='text-danger'><strong>{error}</strong></span>}
-        <label htmlFor="inputUsername" className="sr-only">Логин</label>
-        <Field 
-          name='username'
-          component={renderField}
-          type='text'
-          label="Ваш логин"
-          id='inputUsername'
-          className='form-control'
-        />
-        <label htmlFor="inputPassword" className="sr-only">Пароль</label>
-        <Field
-          name='password'
-          component={renderField}
-          type='password'
-          id='inputPassword'
-          className='form-control'
-          label='Ваш пароль'
-        />
+        <FormField showLabel={false} name='username' label='Ваш логин' id='inputUsername' />
+        <FormField showLabel={false} name='password' label='Ваш пароль' id='inputPassword' />
+
         <button type='submit' className='btn btn-warning btn-lg' disabled={pristine || submitting}>Вход</button>
       </form>
     )

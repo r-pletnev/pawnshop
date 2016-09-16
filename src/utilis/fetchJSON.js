@@ -22,10 +22,13 @@ export default function fetchJSON(url, options) {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }, options.headers)
-  // const  tokenObj = localStorage.getObject('token')
-  // if(!_.isEmpty(tokenObj)){
-  //   options.headers = {...options.headers, ...{token: tokenObj.token}}
-  // }
+  const tokenObj = localStorage.getObject('token')
+  if(!_.isEmpty(tokenObj)){
+    options.headers = {
+      ...options.headers, 
+      ...{Authorization: `JWT ${tokenObj.token}`}
+    }
+  }
 
   if(typeof options.body !== 'string') {
     options.body = JSON.stringify(options.body)

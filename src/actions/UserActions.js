@@ -5,9 +5,20 @@ import {
   LOGOUT_SUCCESS
 } from '../constants/User'
 import {SubmissionError} from 'redux-form'
-
+import {addToDate} from '../utilis'
 import {appRequest, appSuccess, errorDispatcher, hideLoginWindow} from './AppActions'
-import {userLogin} from '../api/User'
+import {userLogin, fetchUserInfo} from '../api/User'
+
+function saveToken(token, expired=addToDate(37000, 's')){
+  localStorage.setObject('token', {token, expired})
+}
+
+function setUserInfo(payload){
+  return {
+    type: LOGIN_SUCCESS,
+    payload: {...payload}
+  }
+}
 
 export function loginUser(payload){
   const {username, password} = payload
@@ -15,7 +26,7 @@ export function loginUser(payload){
     dispatch(appRequest())
     return userLogin({username, password})
       .then((data) => {
-        dispatch(loginUserSuccess({token: data.token}))
+        dispatch(loginUserSuccess(data.token, username))
         dispatch(appSuccess())
         dispatch(hideLoginWindow())})
       .catch((error) => {
@@ -25,15 +36,12 @@ export function loginUser(payload){
   }
 }
 
-export function loginUserSuccess(tokenObj){
+export function loginUserSuccess(token, username){
+  saveToken(token)
   return dispatch => {
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: {
-        token: tokenObj.token,
-        name: 'admin',
-        email: 'some_mail@actionCreator'
-      }
-    })
+    return fetchUserInfo(username)
+      .then(data => {
+        dispatch(setUserInfo(data))
+      })
   }
 }

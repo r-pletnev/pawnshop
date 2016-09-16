@@ -5,6 +5,7 @@ import {routes} from './routes'
 import {Provider} from 'react-redux'
 import configureStore from './store/configureStore'
 import './styles/main.css'
+import './rc'
 
 
 // configure redux store
