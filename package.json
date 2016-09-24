@@ -12,11 +12,13 @@
     "lodash": "^4.15.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-fontawesome": "^1.2.0",
     "react-input-range": "^0.9.1",
     "react-modal": "^1.4.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.0",
     "redux": "^3.6.0",
+    "redux-auth-wrapper": "^0.8.0",
     "redux-form": "^6.0.2",
     "redux-thunk": "^2.1.0",
     "yandex-map-react": "^1.0.0-beta.10"

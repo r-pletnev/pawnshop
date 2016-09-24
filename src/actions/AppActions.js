@@ -46,6 +46,10 @@ export const errorDispatcher = dispatch => error => {
       dispatch(appFail({errorMsg: error}))
       return
     }
+  if (error.constructor.name === 'SubmissionError'){
+      dispatch(appFail({errorMsg: error.errors._error}))
+      return
+  }
 
   parseJSON(error.response)
   .then(er => {

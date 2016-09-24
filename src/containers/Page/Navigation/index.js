@@ -4,16 +4,22 @@ import './navbar.css'
 import {connect} from 'react-redux'
 import Signin from '../Signin'
 import {showLoginWindow} from '../../../actions/AppActions'
+import {logout as logoutAction} from '../../../actions/UserActions'
 
 class Navigation extends Component {
   constructor(props){
     super(props)
     this.handleClickEnterButton = this.handleClickEnterButton.bind(this)
     this.getRigthNavigationBlock = this.getRigthNavigationBlock.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
   handleClickEnterButton(){
     this.props.dispatch(showLoginWindow())
+  }
+
+  logout(){
+    this.props.dispatch(logoutAction())
   }
 
   getRigthNavigationBlock(){
@@ -22,6 +28,9 @@ class Navigation extends Component {
           <li>
             <span className='navbar-text'>Вы вошли как {' '}<Link to='/profile' className='navbar-link'>{this.props.username}</Link>!</span>
           </li>
+          <li>
+            <Link to='' onClick={this.logout}>Выход</Link>
+            </li>
         </ul>)
        :   (<ul className='nav navbar-nav navbar-right'>
             <li><Link to='' data-toggle='modal' onClick={this.handleClickEnterButton}>Войти</Link></li>
@@ -51,7 +60,7 @@ class Navigation extends Component {
                       <ul className="nav navbar-nav">
                         <li role='presentation' className='dropdown'>
                           <Link
-                            to='#'
+                            to='/home'
                             className='dropdown-toggle'
                             data-toggle='dropdown'
                             role='button'
@@ -62,10 +71,10 @@ class Navigation extends Component {
                           </Link>
                             <ul className='dropdown-menu'>
                               <li>
-                                <Link to="/#evaluation">Оценка</Link>
+                                <Link to='/home#evaluation'>Оценка</Link>
                               </li>
                               <li>
-                                <Link to="/#filials">Филиалы</Link>
+                                <Link to="/home#filials">Филиалы</Link>
                               </li>
                             </ul>
                           </li>

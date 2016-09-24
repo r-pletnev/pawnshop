@@ -11,10 +11,6 @@ export default class SimpleModal extends Component {
     featureText: React.PropTypes.object
   }
 
-  static defaultProps = {
-    headerText: null
-  }
-
   render(){
     return (
       <Modal

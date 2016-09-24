@@ -4,13 +4,15 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS
 } from '../constants/User'
-import {SubmissionError} from 'redux-form'
+import {SubmissionError, reset} from 'redux-form'
 import {addToDate} from '../utilis'
 import {appRequest, appSuccess, errorDispatcher, hideLoginWindow} from './AppActions'
 import {userLogin, fetchUserInfo} from '../api/User'
+import {eraseQueries} from './DebtActions'
 
 function saveToken(token, expired=addToDate(37000, 's')){
-  localStorage.setObject('token', {token, expired})
+  const tokenObj = typeof(token) === 'object' ? token : {token, expired}
+  localStorage.setObject('token', tokenObj)
 }
 
 function setUserInfo(payload){
@@ -20,13 +22,23 @@ function setUserInfo(payload){
   }
 }
 
+export function logout(){
+  localStorage.removeItem('token')
+  return dispatch => {
+    dispatch(eraseQueries())
+    dispatch({
+      type: LOGOUT_SUCCESS
+    })
+  }
+}
+
 export function loginUser(payload){
   const {username, password} = payload
   return dispatch => {
     dispatch(appRequest())
     return userLogin({username, password})
       .then((data) => {
-        dispatch(loginUserSuccess(data.token, username))
+        dispatch(loginUserSuccess(data.token))
         dispatch(appSuccess())
         dispatch(hideLoginWindow())})
       .catch((error) => {
@@ -36,12 +48,13 @@ export function loginUser(payload){
   }
 }
 
-export function loginUserSuccess(token, username){
+export function loginUserSuccess(token){
   saveToken(token)
   return dispatch => {
-    return fetchUserInfo(username)
+    return fetchUserInfo()
       .then(data => {
         dispatch(setUserInfo(data))
+        dispatch(reset('debtForm'))
       })
   }
 }

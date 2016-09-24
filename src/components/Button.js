@@ -18,6 +18,7 @@ export default class Button extends Component {
         className={`btn btn-${this.props.type} ${className}`}
         role={this.props.role}
         {...propsWithoutText}
+        type='submit'
       >
         {text}
       </a>
