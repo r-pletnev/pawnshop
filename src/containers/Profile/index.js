@@ -3,13 +3,16 @@ import GradientHeader from '../GradientHeader'
 import Button from '../../components/Button'
 import {connect} from 'react-redux'
 import ChangeEmailForm from './ChangeEmailForm'
+import ChangePasswordForm from './ChangePasswordForm'
 
 class Profile extends Component {
   constructor(props){
     super(props)
-    this.state = {showChangeEmail: false}
+    this.state = {showChangeEmail: false, showChangePassword: false}
     this.closeChangeEmail = this.closeChangeEmail.bind(this)
     this.openChangeEmail = this.openChangeEmail.bind(this)
+    this.closeChangePassword = this.closeChangePassword.bind(this)
+    this.openChangePassword = this.openChangePassword.bind(this)
   }
   
   closeChangeEmail(){
@@ -20,10 +23,19 @@ class Profile extends Component {
     this.setState({showChangeEmail: true})
   }
 
+  closeChangePassword(){
+    this.setState({showChangePassword: false})
+  }
+
+  openChangePassword(){ 
+    this.setState({showChangePassword: true})
+  }
+
   render(){
     return (
       <div>
         <ChangeEmailForm show={this.state.showChangeEmail} close={this.closeChangeEmail} />
+        <ChangePasswordForm show={this.state.showChangePassword} close={this.closeChangePassword} />
         <GradientHeader>
           <h1>Персональные данные</h1>
         </GradientHeader>
@@ -59,7 +71,7 @@ class Profile extends Component {
                 <p className='text-muted'>
                   Вы можете изменить пароль к вашему аккаунту. Чтобы лучше защитить аккаунт, мы советуем придумать особый пароль, который вы нигде больше не используете.
                 </p>
-                <Button text='Изменить пароль'/>
+                <Button text='Изменить пароль' onClick={this.openChangePassword}/>
               </div>
             </div>
             <div className='col-sm-6'>

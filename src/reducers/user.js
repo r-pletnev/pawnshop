@@ -6,7 +6,7 @@ import {
 } from '../constants/User'
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   username: null,
   email: null
 }

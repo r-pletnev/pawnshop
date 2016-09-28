@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {reduxForm, Field, SubmissionError, formValueSelector} from 'redux-form'
+import {reduxForm, Field, SubmissionError} from 'redux-form'
 import FormField from '../../../components/FormField' 
-import {addonField} from '../../../utilis/containers'
 import {connect} from 'react-redux'
-import {checkOldEmail, checkNewEmail} from '../../../actions/UserActions'
+import {checkNewEmail} from '../../../actions/UserActions'
 
 const controledField = ({input, label, type, meta: {touched, error}, id, className, getValue}) => {
   return (
