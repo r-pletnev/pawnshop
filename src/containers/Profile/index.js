@@ -2,30 +2,28 @@ import React, {Component} from 'react'
 import GradientHeader from '../GradientHeader'
 import Button from '../../components/Button'
 import {connect} from 'react-redux'
-import ChangePasswordForm from './ChangePasswordForm'
+import ChangeEmailForm from './ChangeEmailForm'
 
 class Profile extends Component {
   constructor(props){
     super(props)
-    this.state = {showChangePassword: false}
-    this.closeChangePassword = this.closeChangePassword.bind(this)
-    this.openChangePassword = this.openChangePassword.bind(this)
+    this.state = {showChangeEmail: false}
+    this.closeChangeEmail = this.closeChangeEmail.bind(this)
+    this.openChangeEmail = this.openChangeEmail.bind(this)
   }
   
-  closeChangePassword(){
-    this.setState({showChangePassword: false})
+  closeChangeEmail(){
+    this.setState({showChangeEmail: false})
   }
   
-  openChangePassword(){ 
-    this.setState({showChangePassword: true})
+  openChangeEmail(){ 
+    this.setState({showChangeEmail: true})
   }
-
-
 
   render(){
     return (
       <div>
-        <ChangePasswordForm show={this.state.showChangePassword} close={this.closeChangePassword} />
+        <ChangeEmailForm show={this.state.showChangeEmail} close={this.closeChangeEmail} />
         <GradientHeader>
           <h1>Персональные данные</h1>
         </GradientHeader>
@@ -70,7 +68,7 @@ class Profile extends Component {
                 <p className='text-muted'>
                   Вы можете указать новый адрес электронной почты вашей учетной записи только в том случае, если у Вас есть доступ к текущей и новой электронной почте.
                 </p>
-                <Button text='Изменить email' onClick={this.openChangePassword} />
+                <Button text='Изменить email' onClick={this.openChangeEmail} />
               </div>
             </div>
           </div>

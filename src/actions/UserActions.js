@@ -7,7 +7,14 @@ import {
 import {SubmissionError, reset} from 'redux-form'
 import {addToDate} from '../utilis'
 import {appRequest, appSuccess, errorDispatcher, hideLoginWindow} from './AppActions'
-import {userLogin, fetchUserInfo} from '../api/User'
+import {
+  userLogin,
+  fetchUserInfo,
+  checkOldEmail as checkOldEmailApi,
+  setNewEmail as setNewEmailApi,
+  checkNewEmail as checkNewEmailApi,
+  sendCodeToOldEmail
+} from '../api/User'
 import {eraseQueries} from './DebtActions'
 
 function saveToken(token, expired=addToDate(37000, 's')){
@@ -19,6 +26,15 @@ function setUserInfo(payload){
   return {
     type: LOGIN_SUCCESS,
     payload: {...payload}
+  }
+}
+
+function getUserInfo(){
+  return dispatch => {
+    return fetchUserInfo()
+      .then(data => {
+        dispatch(setUserInfo(data))
+      })
   }
 }
 
@@ -55,6 +71,40 @@ export function loginUserSuccess(token){
       .then(data => {
         dispatch(setUserInfo(data))
         dispatch(reset('debtForm'))
+      })
+  }
+}
+
+export function sendCode(){
+  return () => {
+    sendCodeToOldEmail()
+  }
+}
+
+export function checkOldEmail(payload){
+  return () => {
+    return checkOldEmailApi(payload)
+  }
+}
+
+export function checkNewEmail(payload){
+  return (dispatch) => {
+    return checkNewEmailApi(payload)
+      .then(() => {
+        dispatch(getUserInfo())
+      })
+  }
+}
+
+export function setNewEmail(payload){
+  return dispatch => {
+    return setNewEmailApi(payload)
+      .then(data => {
+        dispatch(setUserInfo(data))
+      })
+      .catch(error => {
+        errorDispatcher(dispatch)(error)
+        throw new SubmissionError({_error: 'Ошибка введенных данных'})
       })
   }
 }
