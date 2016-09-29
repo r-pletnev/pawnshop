@@ -11,9 +11,9 @@ import {
   userLogin,
   fetchUserInfo,
   checkOldEmail as checkOldEmailApi,
-  setNewEmail as setNewEmailApi,
   checkNewEmail as checkNewEmailApi,
-  sendCodeToOldEmail
+  sendCodeToOldEmail,
+  updatePassword as updatePasswordApi
 } from '../api/User'
 import {eraseQueries} from './DebtActions'
 
@@ -29,7 +29,7 @@ function setUserInfo(payload){
   }
 }
 
-function getUserInfo(){
+function updateUserInfo(){
   return dispatch => {
     return fetchUserInfo()
       .then(data => {
@@ -91,20 +91,17 @@ export function checkNewEmail(payload){
   return (dispatch) => {
     return checkNewEmailApi(payload)
       .then(() => {
-        dispatch(getUserInfo())
+        dispatch(updateUserInfo())
       })
   }
 }
 
-export function setNewEmail(payload){
-  return dispatch => {
-    return setNewEmailApi(payload)
-      .then(data => {
-        dispatch(setUserInfo(data))
-      })
-      .catch(error => {
-        errorDispatcher(dispatch)(error)
-        throw new SubmissionError({_error: 'Ошибка введенных данных'})
+export function updatePassword(payload){
+  const {password, code} = payload
+  return () => {
+    return checkNewEmailApi({code})
+      .then(() => {
+        return updatePasswordApi({password})
       })
   }
 }

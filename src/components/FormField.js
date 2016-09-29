@@ -4,7 +4,7 @@ import {Field} from 'redux-form'
 export const renderField = ({input, label, type, meta: { touched, error }, id, className, showLabel, value }) => (
   <div>
     <div>
-      <label htmlFor={id} className={showLabel ? null : 'sr-only'}>{label}</label>
+      <label htmlFor={id} className={showLabel ? null : 'sr-only'}>{label}{': '}</label>{' '}
       <input {...input} id={id} className={className} placeholder={showLabel ? null : label} type={type} value={value}/>
       {touched && error && <span className='text-warning pull-right'><i>{error}</i></span>}
     </div>

@@ -19,7 +19,7 @@ class Debt extends Component {
   }
 
   getTable(){
-    if(_.isEmpty(this.props.queries)) return null
+    if(_.isEmpty(this.props.queries)) return <div style={{lineHeight: '14.2em', visibility: 'hidden'}}>t</div>
 
     const rows = this.props.queries.map((elm, index) => {
       return (

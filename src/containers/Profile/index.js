@@ -37,7 +37,11 @@ class Profile extends Component {
         <ChangeEmailForm show={this.state.showChangeEmail} close={this.closeChangeEmail} />
         <ChangePasswordForm show={this.state.showChangePassword} close={this.closeChangePassword} />
         <GradientHeader>
-          <h1>Персональные данные</h1>
+          <h1>Личный кабинет</h1>
+          <p>
+            В личном кабинете Вы можете изменить свой пароль или адрес электронной почты.
+            Для этого нужно иметь доступ к текущей электронной почте.
+          </p>
         </GradientHeader>
         <div className='container'>
           <div className='row'>

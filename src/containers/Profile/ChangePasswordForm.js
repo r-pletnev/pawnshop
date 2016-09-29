@@ -1,10 +1,32 @@
 import React, {Component} from 'react'
 import Modal from '../../components/Modal/'
-import {reduxForm, Field, formValueSelector, reset} from 'redux-form'
+import {reduxForm, Field, formValueSelector, SubmissionError, reset} from 'redux-form'
 import FormField from '../../components/FormField' 
 import {addonField} from '../../utilis/containers'
-import {sendCode} from '../../actions/UserActions'
+import {sendCode, updatePassword} from '../../actions/UserActions'
 import {connect} from 'react-redux'
+
+
+const validate = (values) => {
+  const errors = {}
+  if (!values.code) {
+    errors.code = 'Обязательно к заполнению'
+  }
+
+  if (!values.password1) {
+    errors.password1 = 'Обязательно к заполненнию'
+  }
+
+  if (!values.password2) {
+    errors.password2 = 'Обязательно к заполнению'
+  }
+
+  if (values.password1 && values.password1 !== values.password2) {
+    errors.password2 = 'Пароли не совпадают'
+  }
+
+  return errors
+}
 
 
 class ChangePasswordForm extends Component {
@@ -13,8 +35,15 @@ class ChangePasswordForm extends Component {
     close: React.PropTypes.func
   }
 
-  submitForm(){
-    
+  submitForm(values){
+    const {password1, code} = values
+    return this.props.dispatch(updatePassword({password: password1, code}))
+          .then(() => {
+            this.closeForm.bind(this)()
+          })
+          .catch(error => {
+            throw new SubmissionError({_error: `Введены неверные данные: ${error}`})
+          })
   }
 
   sendCode(){
@@ -51,19 +80,19 @@ class ChangePasswordForm extends Component {
             </p>
           </div>
           <div className='form-group'>
-            <FormField horizontal label='Новый пароль' type='password' name='password' id='password1' />
+            <FormField label='Новый пароль' type='password' name='password1' id='password1' />
             <p className='help-block'>Чтобы лучше защитить аккаунт, мы советуем придумать
               особый пароль, который больше нигде не используете.
             </p>
           </div>
           <div className='form-group'>
-            <FormField horizontal label='Повторите пароль' type='password' name='password2' id='password2' />
+            <FormField label='Повторите пароль' type='password' name='password2' id='password2' />
             <p className='help-block'>Для исключения опечатки введите пароль ещё раз</p>
           </div>
           <div>
             <button disabled={pristine || submitting} className='btn btn-warning' type='submit' >Установить пароль</button>
             {' '}
-            <button className='btn btn-default' onClick={this.closeForm} type='reset'>Отмена</button>
+            <button className='btn btn-default' onClick={this.closeForm.bind(this)} type='reset'>Отмена</button>
           </div>
         </form>
       </Modal>
@@ -72,7 +101,8 @@ class ChangePasswordForm extends Component {
 }
 
 ChangePasswordForm = reduxForm({
-  form: 'passwordForm'
+  form: 'passwordForm',
+  validate
 })(ChangePasswordForm)
 
 export default connect()(ChangePasswordForm)
