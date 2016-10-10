@@ -2,15 +2,16 @@ import {
   APP_REQUEST,
   APP_SUCCESS,
   APP_FAIL,
-  APP_ON_LOGIN_MODAL,
-  APP_OFF_LOGIN_MODAL
+  APP_ON_MODAL,
+  APP_OFF_MODAL
 } from '../constants/App'
 
 const initialState = {
   isFetching: false,
   error: false,
   errorMsg: null,
-  showLoginModal: false
+  showLoginModal: false,
+  typeModal: null
 }
 
 export default function appState(state = initialState, action){
@@ -39,16 +40,18 @@ export default function appState(state = initialState, action){
         errorMsg: action.payload.errorMsg
       }
 
-    case APP_ON_LOGIN_MODAL:
+    case APP_ON_MODAL:
       return {
         ...state,
-        showLoginModal: true
+        showLoginModal: true,
+        typeModal: action.payload.type
       }
 
-    case APP_OFF_LOGIN_MODAL:
+    case APP_OFF_MODAL:
       return {
         ...state,
-        showLoginModal: false
+        showLoginModal: false,
+        typeModal: null
       }
 
     default:

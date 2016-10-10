@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
-import Button from '../../../components/Button'
 import './signin.css'
 import {Field, reduxForm} from 'redux-form'
 import FormField from '../../../components/FormField'
-import {loginUser} from '../../../actions/UserActions'
-import {connect} from 'react-redux'
 
 
 const validate = values => {
@@ -20,7 +17,7 @@ const validate = values => {
 
 class SigninForm extends Component {
   submitForm(values){
-    return this.props.dispatch(loginUser(values))
+    return this.props.formAction(values)
   }
 
   render(){
@@ -42,4 +39,4 @@ SigninForm = reduxForm({
   validate
 })(SigninForm)
 
-export default connect()(SigninForm)
+export default SigninForm

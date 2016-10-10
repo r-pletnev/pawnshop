@@ -2,8 +2,10 @@ import {
   APP_REQUEST,
   APP_FAIL,
   APP_SUCCESS,
-  APP_ON_LOGIN_MODAL,
-  APP_OFF_LOGIN_MODAL
+  APP_ON_MODAL,
+  APP_OFF_MODAL,
+  MODAL_REGISTRATION,
+  MODAL_LOGIN
 } from '../constants/App'
 
 import {parseJSON} from '../utilis/fetchJSON'
@@ -31,13 +33,25 @@ export function appFail(payload){
 
 export function showLoginWindow(){
   return {
-    type: APP_ON_LOGIN_MODAL
+    type: APP_ON_MODAL,
+    payload: {
+      type: MODAL_LOGIN
+    }
+  }
+}
+
+export function showRegistrationWindow(){
+  return {
+    type: APP_ON_MODAL,
+    payload: {
+      type: MODAL_REGISTRATION
+    }
   }
 }
 
 export function hideLoginWindow(){
   return {
-    type: APP_OFF_LOGIN_MODAL
+    type: APP_OFF_MODAL
   }
 }
 

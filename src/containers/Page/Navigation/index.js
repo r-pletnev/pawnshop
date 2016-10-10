@@ -3,7 +3,10 @@ import {Link} from 'react-router'
 import './navbar.css'
 import {connect} from 'react-redux'
 import Signin from '../Signin'
-import {showLoginWindow} from '../../../actions/AppActions'
+import {
+  showLoginWindow,
+  showRegistrationWindow
+} from '../../../actions/AppActions'
 import {logout as logoutAction} from '../../../actions/UserActions'
 
 class Navigation extends Component {
@@ -11,11 +14,16 @@ class Navigation extends Component {
     super(props)
     this.handleClickEnterButton = this.handleClickEnterButton.bind(this)
     this.getRigthNavigationBlock = this.getRigthNavigationBlock.bind(this)
+    this.handleClickRegButton = this.handleClickRegButton.bind(this)
     this.logout = this.logout.bind(this)
   }
 
   handleClickEnterButton(){
     this.props.dispatch(showLoginWindow())
+  }
+
+  handleClickRegButton(){
+    this.props.dispatch(showRegistrationWindow())
   }
 
   logout(){
@@ -33,9 +41,14 @@ class Navigation extends Component {
             </li>
         </ul>)
        :   (<ul className='nav navbar-nav navbar-right'>
-            <li><Link to='' data-toggle='modal' onClick={this.handleClickEnterButton}>Войти</Link></li>
-            <li><Link to=''>Регистрация</Link></li>
-          </ul>)
+         <li>
+             <p className='navbar-text'>
+               <Link to='' data-toggle='modal' className='navbar-link' onClick={this.handleClickEnterButton}>Войти</Link> 
+               {' '}или{' '}
+               <Link className='navbar-link' to='' onClick={this.handleClickRegButton}>Зарегистрироваться</Link>
+             </p>
+          </li>
+            </ul>)
     return (
       <div>{navs}</div>
     )

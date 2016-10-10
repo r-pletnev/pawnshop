@@ -35,7 +35,6 @@ class ChangeEmailForm extends Component {
     this.setState({page: 1, newEmail: this.props.newEmail})
   }
 
-
   render(){
     return(
       <Modal

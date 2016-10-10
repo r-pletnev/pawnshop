@@ -20,6 +20,10 @@ const validate = (values) => {
   if (!values.password2) {
     errors.password2 = 'Обязательно к заполнению'
   }
+  
+  if (values.password1 && values.password1.length < 8){
+    errors.password1 = 'Пароль не может быть меньше 8 символов'
+  }
 
   if (values.password1 && values.password1 !== values.password2) {
     errors.password2 = 'Пароли не совпадают'
@@ -42,6 +46,7 @@ class ChangePasswordForm extends Component {
             this.closeForm.bind(this)()
           })
           .catch(error => {
+            debugger
             throw new SubmissionError({_error: `Введены неверные данные: ${error}`})
           })
   }
@@ -80,13 +85,13 @@ class ChangePasswordForm extends Component {
             </p>
           </div>
           <div className='form-group'>
-            <FormField label='Новый пароль' type='password' name='password1' id='password1' />
+            <FormField showLabel={false} label='Новый пароль' type='password' name='password1' id='password1' />
             <p className='help-block'>Чтобы лучше защитить аккаунт, мы советуем придумать
-              особый пароль, который больше нигде не используете.
+              особый пароль, котоkkkрый больше нигде не используете.
             </p>
           </div>
           <div className='form-group'>
-            <FormField label='Повторите пароль' type='password' name='password2' id='password2' />
+            <FormField showLabel={false} label='Повторите пароль' type='password' name='password2' id='password2' />
             <p className='help-block'>Для исключения опечатки введите пароль ещё раз</p>
           </div>
           <div>
